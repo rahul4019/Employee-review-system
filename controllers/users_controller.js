@@ -21,7 +21,7 @@ module.exports.create = async (req, res) => {
 
     // if password doesn't match
     if (password != confirm_password) {
-      console.log('error', 'Password and Confirm password are not same');
+      req.flash('error', 'Password and Confirm password are not same');
       return res.redirect('back');
     }
 
@@ -42,14 +42,14 @@ module.exports.create = async (req, res) => {
           },
           (err, user) => {
             if (err) {
-              console.log('error', err);
+              req.flash('error', "Couldn't sign Up");
             }
-            console.log('Account created!');
+            req.flash('success', 'Account created!');
             return res.redirect('/');
           }
         );
       } else {
-        console.log('error', 'Email already registed!');
+        req.flash('error', 'Email already registed!');
         return res.redirect('back');
       }
     });
@@ -60,6 +60,20 @@ module.exports.create = async (req, res) => {
 
 // sign in and create a session for the user
 module.exports.createSession = (req, res) => {
-  console.log('Logged in successfully');
-  return res.redirect('/');
+  req.flash('success', 'Logged in successfully');
+  if (req.user.role === 'admin') {
+    return res.redirect('/admin-dashboard');
+  }
+  return res.redirect('/employee-dashboard');
+};
+
+// clears the cookie
+module.exports.destroySession = (req, res) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    req.flash('success', 'Logged out successfully!');
+    return res.redirect('/');
+  });
 };

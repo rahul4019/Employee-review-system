@@ -3,9 +3,13 @@ const passport = require('passport');
 const router = express.Router();
 
 const usersController = require('../controllers/users_controller');
+const dashboardsController = require('../controllers/dashboard_controller');
 
 router.get('/', usersController.signIn);
 router.get('/sign-up', usersController.signUp);
+router.get('/sign-out', usersController.destroySession);
+router.get('/admin-dashboard', dashboardsController.adminDashboard);
+router.get('/employee-dashboard', dashboardsController.employeeDashboard);
 
 router.post('/create', usersController.create);
 

@@ -7,17 +7,18 @@ passport.use(
   new LocalStrategy(
     {
       usernameField: 'email',
+      passReqToCallback: true, // allows to set first argument as req
     },
-    function (email, password, done) {
+    function (req, email, password, done) {
       // find a user and establish the identity
       User.findOne({ email: email }, async function (err, user) {
         if (err) {
-          console.log('error', err);
+          req.flash('error', err);
           return done(err);
         }
 
         if (!user || user.password != password) {
-          console.log('error', err);
+          req.flash('error', 'Invalid Username or Password');
           return done(null, false);
         }
 
@@ -47,6 +48,7 @@ passport.deserializeUser(function (id, done) {
 // check if user authenticated (middleware)
 passport.checkAuthentication = function (req, res, next) {
   // if the user is signed in, then pass on the request to the next function(controller's action)
+  console.log('inside check authentication: ', req);
   if (req.isAuthenticated()) {
     return next();
   }
