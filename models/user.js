@@ -21,6 +21,18 @@ const userSchema = new mongoose.Schema(
       default: 'employee',
       required: true,
     },
+    reviewsByMe: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    reviewsFromOthers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Review',
+      },
+    ],
   },
   {
     timestamps: true,
