@@ -1,1 +1,64 @@
-<h1>admin dashboard</h1>
+<% if(locals.user) {%>
+  <div class="container-fluid p-4">
+    <h1 class="mx-auto">List of employees</h1>
+    <div class="d-flex flex-wrap justify-content-center justify-content-md-start">
+      <% for (user of users) {%>
+        <div class="card shadow m-2" style="width: 19rem">
+          <div class="card-body">
+            <img src="https://cdn-icons-png.flaticon.com/512/7277/7277044.png" alt="" style="width: 40px" />
+            <h5 class="card-title">
+              <%= user.username %>
+            </h5>
+            <h6 class="card-subtitle mb-2 text-secondary">
+              <%= user.email %>
+            </h6>
+            <p class="card-subtitle mb-2 text-muted">Role: <%= user.role %>
+            </p>
+            <div class="d-flex flex-wrap justify-content-between">
+              <a href="" class="btn btn-primary mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+              <a href="" class="btn btn-danger mb-1"><i class="fa-solid fa-trash"></i> Delete</a>
+
+              </a>
+              <a href="" class="btn btn-success mb-1"><i class="fa-solid fa-circle-info"></i> Details</a>
+              <a href="" class="btn btn-warning mb-1" style="width: 100%;" data-bs-toggle="modal"
+                data-bs-target="#user<%= user.id %>" data-bs-whatever="@mdo"><i class="fa-solid fa-file"></i> Assign
+                review</a>
+
+              <div class="modal fade" id="user<%= user.id %>" tabindex="-1" aria-labelledby="<%= user.id %>"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Assign review</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form>
+                        <div>Reviewer: <%= user.username %>
+                        </div>
+
+                        <div class="mb-3">
+                          <label for="recipient-name" class="col-form-label">Recipient:</label>
+                          <input type="text" class="form-control" id="recipient-name">
+                        </div>
+
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Send message</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+        <%} %>
+    </div>
+  </div>
+  <%} %>

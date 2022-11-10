@@ -2,6 +2,12 @@ const User = require('../models/user');
 
 // render the sign in page
 module.exports.signIn = (req, res) => {
+  if (req.isAuthenticated()) {
+    if (req.user.role === 'admin') {
+      return res.redirect('/admin-dashboard');
+    }
+    return res.redirect('/employee-dashboard');
+  }
   return res.render('user_sign_in', {
     title: 'Review system | Sign In',
   });
@@ -9,9 +15,27 @@ module.exports.signIn = (req, res) => {
 
 // render the sign up page
 module.exports.signUp = (req, res) => {
+  if (req.isAuthenticated()) {
+    if (req.user.role === 'admin') {
+      return res.redirect('/admin-dashboard');
+    }
+    return res.redirect('/employee-dashboard');
+  }
   return res.render('user_sign_up', {
     title: 'Review system | Sign Up',
   });
+};
+
+// render add employee page
+module.exports.addEmployee = (req, res) => {
+  if (req.isAuthenticated()) {
+    if (req.user.role === 'admin') {
+      return res.render('add_employee', {
+        title: 'Add Employee ',
+      });
+    }
+  }
+  return res.redirect('/');
 };
 
 // get Sign Up data
@@ -50,6 +74,49 @@ module.exports.create = async (req, res) => {
         );
       } else {
         req.flash('error', 'Email already registed!');
+        return res.redirect('back');
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// add an employee
+module.exports.createEmployee = async (req, res) => {
+  try {
+    const { username, email, password, confirm_password } = req.body;
+
+    // if password doesn't match
+    if (password != confirm_password) {
+      req.flash('error', 'Password and Confirm password are not same');
+      return res.redirect('back');
+    }
+
+    // check if user already exist
+    User.findOne({ email }, async (err, user) => {
+      if (err) {
+        console.log('Error in finding user in signing up');
+        return;
+      }
+
+      if (!user) {
+        await User.create(
+          {
+            email,
+            password,
+            username,
+          },
+          (err, user) => {
+            if (err) {
+              req.flash('error', "Couldn't add employee");
+            }
+            req.flash('success', 'Employee added');
+            return res.redirect('back');
+          }
+        );
+      } else {
+        req.flash('error', 'Employee already exist!');
         return res.redirect('back');
       }
     });

@@ -10,10 +10,20 @@
       />
       <span class="text-center">Review System</span>
     </a>
+    <% if(locals.user) {%>
+
+      <a href="/add-employee" class="text-dark">Add employee</a>
 
     <form>
-      
-      <a class="btn btn-outline-success mx-2" href="/sign-out">Sign Out</a>
+      <a class="btn btn-warning mx-2 rounded-pill fw-semibold" href="/sign-out">
+        <i class="fa-regular fa-user"></i>
+        <%= user.username %>
+      </a>
+      <a class="btn btn-danger mx-2 rounded-pill fw-semibold" href="/sign-out">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        Sign Out</a
+      >
     </form>
+    <%} %>
   </div>
 </nav>
