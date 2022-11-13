@@ -6,10 +6,16 @@
   >
     <h3 class="mb-3 text-center">Sign up</h3>
 
-    <!-- Name input -->
+    <!-- Username input -->
     <div class="form-outline mb-2">
       <label class="form-label" for="username">User name</label>
-      <input type="text" id="name" name="username" class="form-control" required />
+      <input
+        type="text"
+        id="name"
+        name="username"
+        class="form-control"
+        required
+      />
     </div>
 
     <!-- Email input -->
@@ -36,6 +42,7 @@
       />
     </div>
 
+    <!-- Confirm password input -->
     <div class="form-outline mb-2">
       <label class="form-label" for="confirm_password">Confirm password</label>
       <input
@@ -47,7 +54,7 @@
       />
     </div>
 
-    <!-- Password input -->
+    <!-- User role input -->
     <div class="form-outline mb-2">
       <label class="form-label" for="role">Role</label>
       <select
@@ -62,8 +69,9 @@
       </select>
     </div>
 
-    <!-- Submit buttons -->
+    <!-- Buttons container -->
     <div class="my-3 d-flex justify-content-between">
+      <!-- signup button -->
       <button
         type="submit"
         class="btn btn-primary fw-semibold"
@@ -71,6 +79,7 @@
       >
         SIGN UP
       </button>
+      <!-- google signup button button -->
       <button
         type="button"
         class="btn text-light bg-danger fw-semibold"
@@ -80,7 +89,7 @@
       </button>
     </div>
 
-    <!-- Login buttons -->
+    <!-- Link to redierct to login page -->
     <div class="text-center">
       <p>Already registered? <a href="/">Login</a></p>
     </div>

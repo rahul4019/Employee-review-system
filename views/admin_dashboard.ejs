@@ -15,7 +15,8 @@
             <p class="card-subtitle mb-2 text-muted">Role: <%= user.role %>
             </p>
             <div class="d-flex flex-wrap justify-content-between">
-              <a href="" class="btn btn-primary mb-1"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+              <a href="/edit-employee/<%= user._id %>" class="btn btn-primary mb-1"><i
+                  class="fa-solid fa-pen-to-square"></i> Edit</a>
               <a href="" class="btn btn-danger mb-1"><i class="fa-solid fa-trash"></i> Delete</a>
 
               </a>
@@ -40,15 +41,15 @@
                         <div class="mb-3">
                           <label for="recipient-name" class="col-form-label">Recipient:</label>
                           <select class="form-select" aria-label="Default select example" name="recipient_email">
-                            <% for (recipient of users) {%>     
+                            <% for (recipient of users) {%>
                               <!-- filtering the current user from the list of recipient                -->
-                              <% if(recipient.email != user.email ){ %>
-                                <option value="<%= recipient.email %>" ><%= recipient.email %> (<%= recipient.username %>)</option>
-                              }
-                              <%} %>
-                            <%} %>
-
-                            
+                              <% if(recipient.email !=user.email ){ %>
+                                <option value="<%= recipient.email %>">
+                                  <%= recipient.email %> (<%= recipient.username %>)
+                                </option>
+                                }
+                                <%} %>
+                                  <%} %>
                           </select>
                         </div>
 

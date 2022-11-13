@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema(
       default: 'employee',
       required: true,
     },
-    reviewsByMe: [
+    assignedReviews: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
