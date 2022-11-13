@@ -1,3 +1,4 @@
+const Review = require('../models/review');
 const User = require('../models/user');
 
 // Render the sign in page
@@ -191,9 +192,17 @@ module.exports.destroy = async (req, res) => {
     const { id } = req.params;
     const user = await User.findById(id);
 
-    // delete all the reviews in which this uses is either a reviewer or recipient 
-    
+    // delete all the reviews in which this user is a recipient
+    await Review.deleteMany({ recipient: id });
 
+    // delete all the reviews in which this user is a reviewer
+    await Review.deleteMany({ reviewer: id });
+
+    // delete this user
+    await User.findByIdAndDelete(id);
+
+    req.flash('success', `User and associated reviews deleted!`);
+    return res.redirect('back');
   } catch (err) {
     console.log('error', err);
     return res.redirect('back');

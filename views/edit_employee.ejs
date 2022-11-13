@@ -1,10 +1,12 @@
 <% if (locals.user) {%>
-  <div class="d-flex justify-content-around">
-    <div class="container mt-4 col-md-4">
-      <h4>Edit Emloyee details</h4>
+  <div class="d-flex flex-column flex-md-row justify-content-around  p-2">
+    <div class="container mt-4 col-md-4 ">
+      <h4 class="text-center">Emloyee details</h4>
 
-      <form class="row g-3 mt-1 border border-dark rounded p-2" style="--bs-border-opacity: 0.5"
-        action="/update-employee/<%= employee._id %>" method="POST">
+      <form class="row g-3 mt-1 border rounded p-2 shadow mt-4" 
+        style="--bs-border-opacity: 0.5"
+        action="/update-employee/<%= employee._id %>" 
+        method="POST">
 
         <!-- Name input -->
         <div class="form-outline ">
@@ -32,8 +34,8 @@
           </select>
         </div>
 
-        <div class="col-12 ">
-          <button type="submit" class="btn btn-primary">Update</button>
+        <div class="d-flex  justify-content-end" >
+          <button type="submit" class="btn btn-primary" style="width:50%;">Update</button>
         </div>
 
       </form>
@@ -42,11 +44,11 @@
 
     <!-- Reviews section -->
     <div class="container mt-4 col-md-4 ">
-      <h4>Edit reviews given by others</h4>
+      <h4 class="text-center">Feedbacks given by other users</h4>
 
       <% for(review of reviewsFromOthers) {%>
         <div>
-          <form action="/review/update-review/<%= review._id%>" method="POST" class="rounded p-3 mt-4 border " >
+          <form action="/review/update-review/<%= review._id%>" method="POST" class="rounded p-3 mt-4 border shadow" >
             
             <div class="form-outline mb-2">
               <label for="recipient" class="form-label">From</label>
@@ -58,8 +60,8 @@
               <textarea class="form-control " id="feedback-form" name="feedback" rows="3"><%=review.review %></textarea>
             </div>
 
-            <div class="col-12">
-              <button class="btn btn-primary mt-2" type="submit">Update</button>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary mt-2" type="submit" style="width: 40%;">Update</button>
             </div>
 
           </form>

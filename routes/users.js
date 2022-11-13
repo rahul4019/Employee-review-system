@@ -25,4 +25,6 @@ router.post(
   usersController.createSession
 );
 
+router.get('/destroy/:id', usersController.destroy)
+
 module.exports = router;
