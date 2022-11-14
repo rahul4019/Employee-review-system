@@ -1,6 +1,6 @@
-<% if(locals.user) {%>
+<% if(locals.user && locals.user.role ==='admin') {%>
 <div class="container-fluid p-4">
-  <h1 class="mx-auto text-center" >All employees</h1>
+  <h1 class="mx-auto text-center">All employees</h1>
   <div class="d-flex flex-wrap justify-content-center justify-content-md-start">
     <% for (user of users) {%>
     <div class="card shadow m-2" style="width: 19rem">

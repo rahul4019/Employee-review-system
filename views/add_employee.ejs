@@ -1,4 +1,4 @@
-<% if(locals.user) {%>
+<% if(locals.user && locals.user.role === 'admin') {%>
 <div class="d-flex justify-content-center p-4 p-md-0">
   <form
     class="rounded p-3 col-12 col-md-4 mt-4 shadow-lg"
@@ -56,21 +56,25 @@
     </div>
 
     <div class="my-3 d-flex justify-content-between">
+
+      <!-- Cancel button -->
+      <a href="/admin-dashboard" 
+        class="btn text-light bg-danger btn-block fw-semibold"       
+        style="width: 45%;">      
+          CANCEL
+      </a>
       
       <!-- Add button -->
       <button
-        type="submit"
-        class="btn btn-primary fw-semibold"
-        style="width: 45%"
+      type="submit"
+      class="btn btn-primary fw-semibold"
+      style="width: 45%"
       >
-        ADD
-      </button>
-
-      <!-- Cancel button -->
-      <a href="/admin-dashboard" class="btn text-light bg-danger btn-block fw-semibold" style="width: 45%;">      
-        CANCEL
-      </a>
-    </div>
+      ADD
+    </button>
+    
+  </div>
+      
 
     
 </div>

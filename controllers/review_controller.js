@@ -9,7 +9,16 @@ module.exports.assignReview = async (req, res) => {
       const reviewer = await User.findById(req.params.id);
       const recipient = await User.findOne({ email: recipient_email });
 
-      // TODO: check if review arlready assigned
+      // check if review already assigned
+      const alreadyAssigned = reviewer.assignedReviews.filter(
+        (userId) => userId == recipient.id
+      );
+
+      // if found, prevent from assigning duplicate review
+      if (alreadyAssigned.length > 0) {
+        req.flash('error', `Review already assigned!`);
+        return res.redirect('back');
+      }
 
       // update reviewer's assignedReviews field by putting reference of recipient
       await reviewer.updateOne({
@@ -40,11 +49,11 @@ module.exports.submitReview = async (req, res) => {
       recipient,
     });
 
-    console.log('empty review: ', review);
+    // remove all extra spaces from the review
+    const reviewString = review.review.trim();
 
-    // TODO: improve this check condition
-    // check for empty review
-    if (review === ' ') {
+    // prevent from submitting empty feedback
+    if (reviewString === '') {
       req.flash('error', `Feedback section can't be empty!`);
       return res.redirect('back');
     }
