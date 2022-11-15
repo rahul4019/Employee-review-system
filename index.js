@@ -1,7 +1,7 @@
 require('./config/database').connect();
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser'); // parse cookie header and populate req.cookies
+const bodyParser = require('body-parser'); // parses incoming request bodies (req.body)
 const app = express();
 const { PORT, MONGODB_URL, SESSION_SECRET_KEY } = process.env;
 const expressLayouts = require('express-ejs-layouts');
