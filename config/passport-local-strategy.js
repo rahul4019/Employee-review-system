@@ -17,9 +17,16 @@ passport.use(
           return done(err);
         }
 
-        // if user not found or password doesn't match
-        if (!user || user.password != password) {
-          req.flash('error', 'Invalid Username or Password');
+        if (!user) {
+          req.flash('error', 'Invalid username or password');
+          return done(null, false);
+        }
+
+        // match the password
+        const isPasswordCorrect = await user.isValidatedPassword(password);
+
+        if (!isPasswordCorrect) {
+          req.flash('error', 'Invalid username or password');
           return done(null, false);
         }
 

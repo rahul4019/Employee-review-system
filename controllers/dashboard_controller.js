@@ -47,7 +47,6 @@ module.exports.employeeDashboard = async (req, res) => {
 
       // extract the reviews assigned to it
       const assignedReviews = employee.assignedReviews;
-      console.log('assignedReviews: ', assignedReviews);
 
       // extract feedbacks from other employees
       const reviewsFromOthers = employee.reviewsFromOthers;
